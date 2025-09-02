@@ -132,7 +132,7 @@ PlatinumArch-Optimizer applies a **complete suite of optimizations**, organized 
 ---
 
 
-###🎖 Credits
+## 👑 Credits
 
 Development: @STEFANO83223
 Design: @Aledect
