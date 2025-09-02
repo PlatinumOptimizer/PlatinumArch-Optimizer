@@ -7,8 +7,8 @@ Boosts **CPU, GPU, Kernel, Memory, Storage, Network, and overall system performa
 **⚠️ Other distributions:** Not fully supported yet
 
 ---
-### 
-```bash
+###🛠 Installation Guide 
+
 # Move to the folder where the script is located
 cd ~/Downloads  # replace with the correct path if different
 
