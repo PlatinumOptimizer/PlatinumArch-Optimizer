@@ -131,10 +131,10 @@ PlatinumArch-Optimizer applies a **complete suite of optimizations**, organized 
 
 ---
 
+**👑Credits:**
+- Developed by @STEFANO83223
+- Designer By @Aledect
+- 
 
-## 👑 Credits
 
--Development: @STEFANO83223
--Design: @Aledect
--Tested on: CachyOS & Pure Arch Linux
 
