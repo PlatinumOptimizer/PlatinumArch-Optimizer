@@ -1,4 +1,4 @@
-# PlatinumArch-Optimizer
+# 🚀PlatinumArch-Optimizer
 
 **A complete optimization tool for Arch-based Linux systems.**  
 Designed to improve CPU, GPU, kernel, memory, storage, network, and system performance.  
