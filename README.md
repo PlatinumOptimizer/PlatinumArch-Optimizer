@@ -7,6 +7,19 @@ Boosts **CPU, GPU, Kernel, Memory, Storage, Network, and overall system performa
 **⚠️ Other distributions:** Not fully supported yet
 
 ---
+### 
+```bash
+# Move to the folder where the script is located
+cd ~/Downloads  # replace with the correct path if different
+
+# Make the script executable
+chmod +x PlatinumArch-Optimizer.sh
+
+# Run the script as root
+sudo ./PlatinumArch-Optimizer.sh
+
+
+---
 
 ## ✨ What the script does
 
@@ -113,45 +126,10 @@ PlatinumArch-Optimizer applies a **complete suite of optimizations**, organized 
 
 ---
 
-## 🛠 Installation & Usage
 
-```bash
-# Download the script
-curl -O https://example.com/PlatinumArch-Optimizer.sh
+###🎖 Credits
 
-# Make it executable
-chmod +x PlatinumArch-Optimizer.sh
+Development: @STEFANO83223
+Design: @Aledect
+Tested on: CachyOS & Pure Arch Linux
 
-# Run as root
-sudo ./PlatinumArch-Optimizer.sh
-Follow prompts and reboot after completion to apply all optimizations.
-
-🏁 Execution Flow
-Detects hardware (CPU, GPU, RAM, storage)
-
-Prompts user for confirmation
-
-Updates system & installs base packages
-
-Installs GPU drivers & applies tweaks
-
-Applies CPU, memory, kernel, disk, and network optimizations
-
-Applies security tweaks
-
-Enables services & preload
-
-Optimizes mirrorlist
-
-Cleans system
-
-Prompts for reboot
-
-⚠️ Some tweaks require a reboot to take full effect.
-
-🎖 Credits
-Developed by @STEFANO83223
-
-Design by @Aledect
-
-Tested on CachyOS & Pure Arch Linux
