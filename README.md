@@ -13,8 +13,12 @@ Boosts **CPU, GPU, Kernel, Memory, Storage, Network, and overall system performa
 ### Move to the folder where the script is located
 cd ~/Downloads  # replace with the correct path if different
 
+---
+
 ### Make the script executable
 chmod +x PlatinumArch-Optimizer.sh
+
+---
 
 ### Run the script as root
 sudo ./PlatinumArch-Optimizer.sh
