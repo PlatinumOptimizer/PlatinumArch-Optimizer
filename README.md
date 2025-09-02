@@ -139,6 +139,6 @@ The script applies a full suite of optimizations, divided into these categories:
 ---
 
 **Credits:**  
-- Developed by Alexsuperxx09  
-- Inspired by Linux performance guides and community scripts  
+- Developed by @STEFANO83223
+- Designer By @Aledect  
 - Tested on CachyOS and pure Arch Linux
