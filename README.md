@@ -134,7 +134,7 @@ PlatinumArch-Optimizer applies a **complete suite of optimizations**, organized 
 
 ## 👑 Credits
 
-Development: @STEFANO83223
-Design: @Aledect
-Tested on: CachyOS & Pure Arch Linux
+-Development: @STEFANO83223
+-Design: @Aledect
+-Tested on: CachyOS & Pure Arch Linux
 
