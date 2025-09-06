@@ -1,6 +1,6 @@
 # ⚡ PlatinumArch-Optimizer
 
-![PlatinumArch-Optimizer Banner](https://postimg.cc/94S1bhwL)
+![PlatinumArch-Optimizer Banner](https://i.postimg.cc/76PcxPHr/7d7d8a97-24a2-4ad2-8d8e-418e88037d19.png)
 
 
 **Advanced optimization framework for Arch Linux and Arch-based
