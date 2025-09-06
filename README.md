@@ -1,5 +1,8 @@
 # ⚡ PlatinumArch-Optimizer
 
+![PlatinumArch-Optimizer Banner](https://postimg.cc/94S1bhwL)
+
+
 **Advanced optimization framework for Arch Linux and Arch-based
 systems.**\
 This script applies a comprehensive set of **CPU, GPU, Kernel, Memory,
