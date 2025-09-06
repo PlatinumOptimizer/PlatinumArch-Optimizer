@@ -1,10 +1,9 @@
-# ⚡ PlatinumArch-Optimizer (Extreme Edition)
+# ⚡ PlatinumArch-Optimizer
 
 **Advanced optimization framework for Arch Linux and Arch-based
 systems.**\
 This script applies a comprehensive set of **CPU, GPU, Kernel, Memory,
-Storage, I/O, Network, and System optimizations**, with optional
-**Extreme Mode** for maximum performance.
+Storage, I/O, Network, and System optimizations** automatically.
 
 ------------------------------------------------------------------------
 
@@ -42,11 +41,11 @@ sudo ./Platinum.sh
 
 ### 🖥 CPU Optimizations
 
--   Sets CPU governor → **performance**
+-   Forces CPU governor to **performance**\
 
--   Enables **irqbalance** to distribute interrupts
+-   Enables **irqbalance** for interrupt distribution\
 
--   Kernel command-line flags:
+-   Kernel command-line flags applied via GRUB:
 
     -   Intel:
         `intel_pstate=active intel_idle.max_cstate=0 processor.max_cstate=1`\
@@ -60,35 +59,34 @@ sudo ./Platinum.sh
         vm.dirty_background_ratio=5
         kernel.sched_autogroup_enabled=0
         kernel.nmi_watchdog=0
+        kernel.sched_migration_cost_ns=5000000
 
--   GRUB patched with flags: `nowatchdog mitigations=off preempt=full`\
+-   Forces CPU maximum frequency across all cores\
 
--   **Extreme Mode (Intel/AMD):**
+-   Disables throttling mechanisms (BD PROCHOT, turbo restrictions) when
+    supported\
 
-    -   Forces maximum CPU frequency on all cores\
-    -   Disables throttling mechanisms (BD PROCHOT, turbo restrictions)\
-    -   Raises thermal trip points
+-   Raises thermal trip points to delay throttling
 
 ------------------------------------------------------------------------
 
 ### 🎨 GPU Optimizations
 
--   Detects vendor (**NVIDIA / AMD / Intel**)\
--   Installs proper drivers and libraries\
--   Vendor tuning:
+-   Automatic detection of **NVIDIA / AMD / Intel GPUs**\
+-   Installs proper drivers and required Vulkan/VA libraries\
+-   Vendor-specific tuning:
     -   **NVIDIA** → Persistence mode, PowerMizer Max Performance,
-        Coolbits enabled for OC\
+        Coolbits enabled for OC, power limit raised to max, GPU/memory
+        overclock offsets applied\
     -   **AMD/Intel** → `power_dpm_force_performance_level=high` or
-        `performance`\
--   **Extreme Mode (NVIDIA):**
-    -   Sets GPU power limit to maximum allowed\
-    -   Applies automatic overclock offsets via `nvidia-settings`
+        `performance` for maximum throughput
 
 ------------------------------------------------------------------------
 
 ### 🐧 Kernel & I/O Optimizations
 
--   Installs **Linux Zen Kernel** for low-latency performance\
+-   Installs **Linux Zen Kernel** for low-latency and gaming
+    performance\
 
 -   Storage schedulers:
 
@@ -97,7 +95,7 @@ sudo ./Platinum.sh
 
 -   File descriptor limit raised → `fs.file-max=1000000`\
 
--   Advanced I/O tuning (`/etc/sysctl.d/10-advanced-io.conf`):
+-   Advanced I/O sysctl tuning (`/etc/sysctl.d/10-advanced-io.conf`):
 
         vm.dirty_ratio=5
         vm.dirty_background_ratio=2
@@ -105,12 +103,8 @@ sudo ./Platinum.sh
         vm.dirty_writeback_centisecs=100
         vm.swappiness=1
 
--   **Extreme Mode:**
-
-    -   Disables NUMA balancing, scheduler stats, energy aware
-        scheduling\
-    -   Forces maximum I/O queue depth and disables randomness in disk
-        queues
+-   Forces maximum I/O queue depth and disables randomness in disk
+    queues
 
 ------------------------------------------------------------------------
 
@@ -127,25 +121,26 @@ sudo ./Platinum.sh
 -   For high-memory systems (≥16GB): sets `dirty_bytes` and
     `dirty_background_bytes`\
 
--   Enables **earlyoom.service** to kill memory hogs before freeze\
+-   Enables **earlyoom.service** to prevent system freeze under low
+    memory conditions\
 
--   Advanced:
+-   Systemd configuration tuned to reduce accounting overhead\
 
-    -   Configures systemd to reduce accounting overhead\
-    -   Enables Transparent Hugepages (THP)\
-    -   Optimizes cgroups v2 controllers
+-   Transparent Hugepages (THP) enabled and set to `always`\
+
+-   Optimized cgroups v2 controllers for memory, CPU and I/O
 
 ------------------------------------------------------------------------
 
 ### 💾 Disk & Filesystem Optimizations
 
--   SSD-specific:
+-   SSD-specific tuning:
 
     -   Enables **TRIM** (fstrim.timer)\
     -   Sets `read_ahead_kb=256`\
-    -   Adds `noatime,nodiratime` mount options in `/etc/fstab`\
+    -   Adds `noatime,nodiratime` to fstab entries\
 
--   Disk I/O sysctl tweaks:
+-   Disk I/O sysctl tuning:
 
         vm.dirty_writeback_centisecs=1500
         vm.dirty_expire_centisecs=3000
@@ -154,70 +149,64 @@ sudo ./Platinum.sh
 
 ### 🌐 Network Optimizations
 
--   Creates configs:
+-   Creates optimized configs:
     -   `/etc/sysctl.d/10-network.conf`\
     -   `/etc/sysctl.d/10-gaming.conf`\
 -   Parameters include:
     -   TCP congestion control → **BBR**\
     -   TCP fast open → enabled\
     -   Default qdisc → `fq`\
-    -   Buffer tuning: `rmem_max`, `wmem_max`, `tcp_rmem`, `tcp_wmem`\
-    -   Gaming: `netdev_max_backlog=300000`, optimized TCP keepalive,
-        aggressive timeouts
+    -   Socket buffers: `rmem_max`, `wmem_max`, `tcp_rmem`, `tcp_wmem`\
+    -   Gaming-specific: `netdev_max_backlog=300000`, optimized TCP
+        keepalive, aggressive timeouts
 
 ------------------------------------------------------------------------
 
-### 🔒 Security Adjustments (Performance-Oriented)
+### 🔒 Security Adjustments
 
--   Minimal changes to reduce performance impact:
+-   Sysctl settings tuned for minimal performance impact:
 
         kernel.kptr_restrict=0
         kernel.dmesg_restrict=0
         kernel.printk=3 3 3 3
+        kernel.unprivileged_bpf_disabled=0
+        net.core.bpf_jit_enable=1
+        kernel.timer_migration=0
+        kernel.sched_energy_aware=0
+        kernel.numa_balancing=0
 
--   Advanced/Extreme: disables kernel mitigations (Meltdown, Spectre,
-    etc.)
+-   Disables CPU vulnerability mitigations for maximum performance
 
 ------------------------------------------------------------------------
 
 ### ⚙️ Services & Utilities
 
--   Enables essential services:
+-   Enables system services:
     -   `cpupower.service`\
     -   `irqbalance.service`\
     -   `earlyoom.service`\
     -   `fstrim.timer`\
     -   `preload.service` (configured with tuned preload size &
         frequency)\
--   Installs utilities: `lm_sensors`, `powertop`, `tuned`, `reflector`,
-    `preload`, etc.
+-   Installs supporting utilities: `lm_sensors`, `powertop`, `tuned`,
+    `reflector`, `preload`, `usbutils`, `pciutils`
 
 ------------------------------------------------------------------------
 
 ### 🪞 Mirrorlist Optimization
 
--   Backs up `/etc/pacman.d/mirrorlist`\
--   Runs **reflector** to fetch the 20 fastest HTTPS mirrors and rewrite
-    mirrorlist
+-   Backups `/etc/pacman.d/mirrorlist`\
+-   Uses **reflector** to fetch the 20 fastest HTTPS mirrors and updates
+    pacman mirrorlist
 
 ------------------------------------------------------------------------
 
 ### 🧹 System Cleanup
 
--   Pacman cache cleanup (keeps 1 previous version)\
--   Removes orphaned packages\
--   Deletes user & root caches (`~/.cache`)\
--   Truncates log files and vacuums journal to 7 days
-
-------------------------------------------------------------------------
-
-## ⚠️ Extreme Mode Disclaimer
-
-The **Extreme Mode** pushes CPU, GPU, and I/O beyond default safety
-margins.\
-✔️ Delivers maximum performance for gaming & benchmarking\
-⚠️ Increases power consumption, heat, and hardware wear\
-⚠️ Not recommended for laptops or thermally constrained systems
+-   Cleans pacman cache (keeps 1 previous version)\
+-   Removes orphan packages automatically\
+-   Purges `~/.cache` and `/root/.cache`\
+-   Truncates `.log` files and vacuums `journalctl` to 7 days
 
 ------------------------------------------------------------------------
 
@@ -227,23 +216,21 @@ margins.\
 # Run script
 sudo ./Platinum.sh
 
-# Choose whether to enable EXTREME MODE
-Apply Extreme Optimizations? (y/N): y
-
-# Confirm
-Are you sure? These may shorten hardware lifespan. (y/N): y
-
-# System gets fully optimized
+# Script automatically:
+# - Detects hardware (CPU, GPU, RAM, Storage)
+# - Installs required drivers & packages
+# - Applies all system-wide optimizations
+# - Enables services (cpupower, irqbalance, earlyoom, preload, fstrim)
+# - Optimizes mirrorlist & cleans system
 ```
 
 After completion:\
-- CPU locked to performance mode\
-- GPU drivers installed & tuned\
-- Kernel tuned for low-latency & max throughput\
-- Memory & I/O optimized\
-- Services enabled (cpupower, irqbalance, earlyoom, preload, fstrim)\
-- Mirrorlist refreshed\
-- System cleaned
+- CPU and GPU locked to maximum performance states\
+- Kernel tuned for throughput and low latency\
+- Memory, I/O, and disk optimized for responsiveness\
+- Network stack tuned for gaming and high throughput\
+- System services enabled for continuous performance\
+- System cleaned and ready for use
 
 ------------------------------------------------------------------------
 
@@ -256,7 +243,8 @@ After completion:\
 
 ## 📌 Final Notes
 
--   A reboot is recommended after running the optimizer\
--   For best results, monitor system temperatures with `lm_sensors` or
-    `watch -n 1 sensors`\
--   Use Extreme Mode only if you understand the risks
+-   A reboot is strongly recommended after running the optimizer\
+-   Monitor system temperatures with `lm_sensors`
+    (`watch -n 1 sensors`)\
+-   Script is intended for desktops, workstations, and gaming systems
+    where maximum performance is preferred over power efficiency
